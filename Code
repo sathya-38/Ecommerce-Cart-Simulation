@@ -1,0 +1,101 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+ class Product {
+    private String name;
+    private double price;
+
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void displayProduct() {
+        System.out.println(name + " - Rs." + price);
+    }
+}
+
+class Cart {
+    private List<Product> products;
+
+    public Cart() {
+        products = new ArrayList<>();
+    }
+
+    public void addProduct(Product product) {
+        products.add(product);
+        System.out.println(product.getName() + " added to cart.");
+    }
+
+    public void displayCart() {
+        System.out.println("\nYour Cart:");
+        for (Product product : products) {
+            product.displayProduct();
+        }
+    }
+
+    public double calculateTotal() {
+        double total = 0;
+        for (Product product : products) {
+            total += product.getPrice();
+        }
+        return total;
+    }
+}
+
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Cart cart = new Cart();
+
+        System.out.println("Welcome to Simple E-commerce Store!");
+
+        while (true) {
+            System.out.println("\nSelect an option:");
+            System.out.println("1. Add Product to Cart");
+            System.out.println("2. View Cart");
+            System.out.println("3. Checkout");
+            System.out.println("4. Exit");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume leftover newline
+
+            if (choice == 1) {
+                System.out.print("Enter product name: ");
+                String name = scanner.nextLine();
+                System.out.print("Enter product price: ");
+                double price = scanner.nextDouble();
+                Product product = new Product(name, price);
+                cart.addProduct(product);
+            } else if (choice == 2) {
+                cart.displayCart();
+            } else if (choice == 3) {
+                cart.displayCart();
+                double total = cart.calculateTotal();
+                System.out.println("Total Amount: Rs." + total);
+                System.out.println("Thank you for shopping!");
+                break;
+            } else if (choice == 4) {
+                System.out.println("Exiting... Thank you!");
+                break;
+            } else {
+                System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        scanner.close();
+    }
+}
+
+
+
